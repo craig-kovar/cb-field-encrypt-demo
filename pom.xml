@@ -3,7 +3,9 @@
   <groupId>CBFieldEncryptionDemo</groupId>
   <artifactId>CBFieldEncryptionDemo</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
   <build>
+  	<finalName>CBFieldEncryptionDemo</finalName>
     <sourceDirectory>src</sourceDirectory>
     <resources>
         <resource>
@@ -21,30 +23,32 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-		</configuration>
-      </plugin>
+	</configuration>
+       </plugin>
       <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-        	<archive>
-		  		<manifest>
-		  			<addClasspath>true</addClasspath>
-					<mainClass>com.cb.demo.FieldEncryption</mainClass>
-				</manifest>
-		  	</archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
-      </plugin>
+      <artifactId>maven-assembly-plugin</artifactId>
+      <executions>
+		<execution>
+			<phase>package</phase>
+			<goals>
+				<goal>single</goal>
+			</goals>
+		</execution>
+		</executions>
+		<configuration>
+	 	<archive>
+  		<manifest>
+  			<addClasspath>true</addClasspath>
+			<mainClass>com.cb.demo.FieldEncryption</mainClass>
+		</manifest>
+  		</archive>
+		<descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+		<finalName>CBFieldEncryptionDemo</finalName>
+        <appendAssemblyId>false</appendAssemblyId>
+		</configuration>
+		</plugin>
     </plugins>
   </build>
   <dependencies>
