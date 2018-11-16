@@ -5,6 +5,15 @@
   <version>0.0.1-SNAPSHOT</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <resources>
+        <resource>
+            <directory>src</directory>
+            <includes>
+                <include>**/*.properties</include>
+                <include>**/*.xml</include>
+            </includes>
+        </resource>
+    </resources>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -12,21 +21,28 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-		  <descriptorRefs>
-		  	<descriptorRef>jar-with-dependencies</descriptorRef>
-		  </descriptorRefs>
 		</configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
-          <archive>
-		  	<manifest>
-		  		<addClasspath>true</addClasspath>
-				<mainClass>com.cb.demo.FieldEncryption</mainClass>
-			</manifest>
-		  </archive>
+        	<archive>
+		  		<manifest>
+		  			<addClasspath>true</addClasspath>
+					<mainClass>com.cb.demo.FieldEncryption</mainClass>
+				</manifest>
+		  	</archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
         </configuration>
       </plugin>
     </plugins>
