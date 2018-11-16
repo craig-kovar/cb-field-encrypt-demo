@@ -24,21 +24,20 @@ import com.couchbase.client.java.transcoder.JsonTranscoder;
 
 
 
-
-
 public class CbRepository {
 	
 	private static Logger logger = LoggerFactory.getLogger(CbRepository.class);
 	
 	private final JsonConverter converter = new JacksonConverter();
 	private final JsonTranscoder transcoder = new JsonTranscoder();
+	private CryptoManager cm = null;
 	
 	private static Cluster cluster;
 	private static Bucket bucket;
 	
 	public CbRepository(PropertyManager pm) {
 		try {
-			
+	
 			JceksKeyStoreProvider kp = new JceksKeyStoreProvider("secret");
 			kp.storeKey("SecretKey", "aabbccddqqnnmmeerryybbff3322kk99".getBytes());
 			kp.storeKey("HMACsecret", "myauthsecret".getBytes());
@@ -48,6 +47,7 @@ public class CbRepository {
 			CryptoManager cryptomanager = new CryptoManager();
 			cryptomanager.registerProvider("AES", aes256CryptoProvider);
 			
+			cm = cryptomanager;
 			
 			CouchbaseEnvironment env = DefaultCouchbaseEnvironment.builder().cryptoManager(cryptomanager).build();
 			env.eventBus().get().subscribe(CbRepository::logEvent);
@@ -66,6 +66,9 @@ public class CbRepository {
 		}
 	}
 
+	public CryptoManager getCryptoManager() {
+		return this.cm;
+	}
 
 	private static void logEvent(CouchbaseEvent e) {
 		logger.info("EVENT : " + e);
